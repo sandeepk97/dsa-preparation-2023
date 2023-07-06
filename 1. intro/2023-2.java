@@ -118,10 +118,9 @@ class Q7 {
     }
 }
 
-
 // 8. https://leetcode.com/problems/move-zeroes
 
-class Solution {
+class Q8 {
     public void moveZeroes(int[] nums) {
        int count=0;
         int i=0;
@@ -136,5 +135,38 @@ class Solution {
         while(i<nums.length) {
             nums[i++] =0;
         }
+    }
+}
+
+
+// https://leetcode.com/problems/transpose-matrix
+
+class Q9 {
+    public int[][] transpose(int[][] matrix) {
+        int[][] result = new int[matrix[0].length][matrix.length];
+        for (int i=0;i < matrix[0].length; i++) {
+            for (int j=0; j < matrix.length;j++) {
+                result[i][j] = matrix[j][i];
+            }
+        }
+        return result;
+    }
+}
+
+// 10. https://leetcode.com/problems/majority-element
+
+class Q10 {
+    public int majorityElement(int[] nums) {
+        int count = 0;
+        Integer candidate = null;
+
+        for (int num : nums) {
+            if (count == 0) {
+                candidate = num;
+            }
+            count += (num == candidate) ? 1 : -1;
+        }
+
+        return candidate;
     }
 }
