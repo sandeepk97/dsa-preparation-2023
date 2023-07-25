@@ -4,7 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 // 1. https://leetcode.com/problems/add-binary/
-
+class q1 {
+    public String addBinary(String a, String b) {
+        StringBuilder sb= new StringBuilder();
+        int sum = 0, carry = 0;
+        for (int i=a.length()-1,j=b.length()-1; i>=0 || j>=0; ) {
+            int x = i>=0 ? a.charAt(i) - '0' : 0;
+            int y = j>=0 ? b.charAt(j) - '0' : 0;
+            
+            sum = (x+y + carry)%2;
+            carry = (x+y + carry)/2;
+            sb.append(sum);
+            i--; j--;
+        }
+        
+        if (carry != 0)
+            sb.append(carry);
+        
+        return sb.reverse().toString();
+    }
+}
 
 
 // 2. https://leetcode.com/problems/shuffle-the-array/
@@ -73,6 +92,19 @@ class q4 {
 }
 
 // 5. https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/
+class q5 {
+    public int countNegatives(int[][] grid) {
+        int i=0, j= grid[0].length-1, count = 0;
+        while (i < grid.length) {
+            while (j>=0 && grid[i][j] < 0) {
+                 j--;
+            }
+            count += grid[0].length-1-j;
+            i++;
+        }
+        return count;
+    }
+}
 
 // 6. https://leetcode.com/problems/three-consecutive-odds/
 class q6 {
@@ -119,6 +151,27 @@ class q8 {
             }
         }
         return result;
+    }
+}
+
+class q8inPlace {
+    public int[] sortArrayByParityII(int[] nums) {
+        int i=0, j=1;
+        while (i <nums.length && j<nums.length) {
+            while (i < nums.length && nums[i]%2 == 0) {
+                i+=2;
+            }
+            while (j < nums.length && nums[j]%2 == 1) {
+                j+=2;
+            }
+            if (i < nums.length && j < nums.length && nums[i]%2 == 1 && nums[j]%2 == 0) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+            }
+            i+=2; j+=2;
+        }
+        return nums;
     }
 }
 
