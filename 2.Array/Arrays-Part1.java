@@ -147,6 +147,43 @@ class q8 {
 }
 
 //  9. https://leetcode.com/problems/majority-element-ii/
+class q9 {
+    public List<Integer> majorityElement(int[] nums) {
+        int c1=0, c2=0;
+        int majority1 = Integer.MIN_VALUE, majority2 = Integer.MIN_VALUE;
+        for (int i=0; i< nums.length;i++) {
+            if (nums[i] == majority1) {
+                c1++;
+            } else if (nums[i] == majority2) {
+                c2++;
+            } else if (c1==0) {
+                majority1 = nums[i];
+                c1++;
+            } else if (c2==0) {
+                majority2 = nums[i];
+                c2++;
+            }  else {
+                c1--;
+                c2--;
+            }
+        }
+        
+        List<Integer> result = new ArrayList<>();
+        c1 = 0; c2=0;
+        for (int i=0; i<nums.length; i++) {
+            if (nums[i] == majority1) {
+                c1++;
+            } else if (nums[i] == majority2) {
+                c2++;
+            }
+        }
+        if (c1 > Math.floor(nums.length/3.0)) 
+            result.add(majority1);
+        if (majority2 != Integer.MIN_VALUE && c2 > Math.floor(nums.length/3.0))
+            result.add(majority2);
+        return result;
+    }
+}
 
 //  10.https://leetcode.com/problems/missing-ranges/ 
 
@@ -251,8 +288,66 @@ class q13 {
 }
 
 // 14.https://leetcode.com/problems/4sum/
-
+class q14 {
+	// TODO generic approach
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        for (int i=0; i<nums.length; i++) {
+            // if (i>0 && nums[i] == nums[i-1]) continue;
+            for (int j=i+1; j<nums.length;j++) {
+                // if (j>i+1 && nums[j] == nums[j-1]) continue;
+                int k=j+1, l = nums.length-1;
+                while (k<l) {
+                    long sum = nums[i];
+                    sum += nums[j];
+                    sum += nums[k] + nums[l];
+                    if (sum > target)
+                        l--;
+                    else if (sum < target)
+                        k++;
+                    else {
+                        result.add(new ArrayList<>(Arrays.asList(nums[i], nums[j], nums[k], nums[l])));
+                        l--;
+                        k++;
+                        while (k<l  && nums[l] == nums[l+1])
+                            l--;
+                        while (k<l && nums[k] == nums[k-1])
+                            k++;
+                    }
+                }
+                
+                while (j < nums.length-1 && nums[j] == nums[j+1])
+                    j++;
+            }
+            while (i < nums.length-1 && nums[i] == nums[i+1])
+                    i++;
+        }
+        return result;
+    }
+}
 
 
 
 // 15.https://leetcode.com/problems/rotate-image/
+class q15 {
+    public void rotate(int[][] matrix) {
+        for (int i=0; i<matrix.length; i++) {
+            for (int j=0; j<matrix[0].length;j++) {
+                if (i<j) {
+                    int temp = matrix[i][j];
+                    matrix[i][j] = matrix[j][i];
+                    matrix[j][i] = temp;
+                }
+            }
+        }
+        
+        for (int i=0; i<matrix.length; i++) {
+            for (int j=0; j<matrix[0].length/2;j++) {
+                int temp = matrix[i][matrix[0].length-j-1];
+                matrix[i][matrix[0].length-j-1] = matrix[i][j];
+                matrix[i][j] = temp;
+            }
+        }
+    }
+}

@@ -176,11 +176,73 @@ class q8inPlace {
 }
 
 // 9. https://leetcode.com/problems/duplicate-zeros/
+class q9 {
+    public void duplicateZeros(int[] arr) {
+        int numOfZeroes = 0;
+        for (int num: arr)
+            if (num == 0)
+                numOfZeroes++;
+        int last = arr.length+numOfZeroes-1;
+        int i=arr.length-1;
+        while (i!=last) {    
+            if (arr[i] !=0) {
+                if (last < arr.length) {
+                    arr[last] = arr[i];
+                }
+            }
+            else {
+                if (last < arr.length) {
+                    arr[last] = arr[i];
+                }
+                last--;
+                if (last < arr.length) {
+                    arr[last] = arr[i];
+                }
+            }
+            i--;
+            last--;
+        }
+        
+    }
+}
 
 // 10. https://leetcode.com/problems/contains-duplicate-iii/
 
 // 11. https://leetcode.com/problems/max-consecutive-ones/
+class q11 {
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int currCount = 0, maxCount = 0;
+        for (int num: nums) {
+            if (num!= 0) {
+                currCount++;
+            } else {
+                currCount = 0;
+            }
+            maxCount = Math.max(currCount, maxCount);
+        }
+        return maxCount;
+    }
+}
 
 // 12. https://leetcode.com/problems/max-consecutive-ones-iii/
+class q12 {
+    public int longestOnes(int[] nums, int k) {
+        int maxOnes = 0, zeroesCount = 0;
+        for (int i=0, j=0; i<=j && j< nums.length; j++) {
+            if (nums[j] == 0)
+                zeroesCount++;
+            
+            while (zeroesCount > k) {
+                if (nums[i] == 0)
+                    zeroesCount--;
+                i++;
+            }
+            
+            maxOnes = Math.max(maxOnes, j-i+1);
+        }
+        return maxOnes;
+    }
+}
+
 
 // 13. https://leetcode.com/problems/online-election/
