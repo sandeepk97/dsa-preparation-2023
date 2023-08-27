@@ -14,7 +14,6 @@ class q1 {
             if (i>0 && nums[i] == nums[i-1]) continue;
             int j=i+1, k = nums.length-1;
             while (j<k) {
-                int mid = j + (k-j)/2;
                 if (nums[j] + nums[k] == -1*nums[i]) {
                     result.add(new ArrayList<>(Arrays.asList(nums[i], nums[j], nums[k])));
                     j++;
@@ -44,7 +43,6 @@ class q2 {
             if (i>0 && nums[i] == nums[i-1]) continue;
             int j=i+1, k = nums.length-1;
             while (j<k) {
-                int mid = j + (k-j)/2;
                 int sum = nums[i] + nums[j] + nums[k];
                 if (Math.abs(sum-target) < absoluteDiff) {
                     absoluteDiff = Math.abs(sum-target);
